@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- ========== Make sure the mod is there first ========== -->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+	<!-- ==========  ========== -->
+	<li Class="CombatExtended.PatchOperationFindMod">
+				<modName>Squishable Race! [v1.0]</modName>
+	</li>
+
+	<!-- ========== COPY  ==========-->
+
+		<li Class="PatchOperationAddModExtension">
+	<xpath>*/AlienRace.ThingDef_AlienRace[defName="BasicMothman"]</xpath>
+	<value>
+		<li Class="CombatExtended.RacePropertiesExtensionCE">
+			<bodyShape>Quadruped</bodyShape>
+		</li>
+	</value>
+</li>
+
+<li Class="PatchOperationAdd">
+	<xpath>*/ThingDef[@Name="BasicMothman"]/comps</xpath>
+	<value>
+		<li>
+			<compClass>CombatExtended.CompPawnGizmo</compClass>
+		</li>
+		<li Class="CombatExtended.CompProperties_Suppressable" />
+	</value>
+</li>
+
+	<!-- ==========  ========== -->
+
+	<li Class="PatchOperationReplace">
+	<xpath>*/ThingDef[@Name="BasicMothman"]/inspectorTabs/li[.="ITab_Pawn_Gear"]</xpath>
+	<value>
+		<li>CombatExtended.ITab_Inventory</li>
+	</value>
+</li>
+
+<li Class="PatchOperationAdd">
+	<xpath>*/ThingDef[@Name="BasicMothman"]/comps</xpath>
+	<value>
+		<li Class="CombatExtended.CompProperties_Inventory" />
+	</value>
+</li>
+
+	<!-- ========== NON-TOOLS  ========== -->
+
+
+	<!-- === For the most part, it adds the CE melee handler thing 	=== -->
+	<!-- === And also defines armor penetration, which allows them	=== -->
+
+			<li Class="PatchOperationAdd">
+			<xpath>*/AlienRace.ThingDef_AlienRace[defName = "BasicMothman"]/statBases</xpath>
+			<value>
+			<AimingAccuracy>1.9</AimingAccuracy>
+			<MeleeDodgeChance>3</MeleeDodgeChance>
+			<MeleeCritChance>4</MeleeCritChance>
+			<MeleeParryChance>3</MeleeParryChance>
+			<ReloadSpeed>2</ReloadSpeed>
+			<Suppressability>0.1</Suppressability>
+			</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+			<xpath>*/AlienRace.ThingDef_AlienRace[defName="BasicMothman"]/tools</xpath>
+			<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+				<label>poison fangs</label>
+				<capacities>
+					<li>ToxicBite</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>0.3</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<armorPenetration>1</armorPenetration>
+				</li>
+			</tools>
+			</value>
+			</li>
+	<!-- === BaseBodySize, ArmorRatings, MoveSpeed, and BaseHealth should already be set. I think. === -->
+	<!-- ===================================== -->
+	<!-- === Adds In Inspector Tabs 	   === -->
+	<!-- === Inventory and all that jazz   === -->
+	<!-- === Again, no need to change 'em  === -->
+	<!-- === Unless you changed it         === -->
+	<!-- === then change 'em			   === -->
+
+
+		</operations>
+	</Operation>
+
+	<!-- === Congratulations! Your alien is Combat Ready!	 === -->
+	<!-- === If your alien comes with extra guns and gear,	 === -->
+	<!-- === Congratulations! You're not even close to done! === -->
+</Patch>
